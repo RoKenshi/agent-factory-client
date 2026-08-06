@@ -7,8 +7,9 @@ This repository contains transparent installer scripts, privacy/security documen
 checksums, and compiled release binaries. It does **not** contain the proprietary Agent Factory
 engine or control-plane source code.
 
-> Pre-release: no production binary is published until code signing and the privacy acceptance
-> gates in [PRIVACY.md](PRIVACY.md) pass.
+> Beta releases are intentionally distributed without paid Apple notarization or Windows
+> Authenticode. Release files are protected by signed checksums; the privacy acceptance gates in
+> [PRIVACY.md](PRIVACY.md) remain mandatory before GA.
 
 ## What Agent Factory never receives
 
@@ -46,8 +47,8 @@ Get-Content .\install.ps1
 
 Installers detect the operating system and architecture, download from the public GitHub Release,
 verify the Ed25519 signature over `SHA256SUMS`, verify the archive checksum, extract the complete
-standalone directory, and run the binary's built-in `self-test`. Windows additionally requires a
-valid Authenticode signature on the executable.
+standalone directory, and run the binary's built-in `self-test`. Windows requires OpenSSL for the
+same Ed25519 verification and reports, but does not require, Authenticode for the unsigned beta.
 
 ## Run
 

@@ -29,5 +29,6 @@ Get-Content .\install.ps1
 ```
 
 Скрипт определит платформу, скачает архив из публичного GitHub Release, проверит Ed25519-подпись
-`SHA256SUMS`, затем SHA-256 архива и выполнит встроенный `self-test`. Windows также требует
-валидную Authenticode-подпись исполняемого файла.
+`SHA256SUMS`, затем SHA-256 архива и выполнит встроенный `self-test`. Бета-релизы намеренно не
+требуют платных Apple notarization и Windows Authenticode. На Windows для той же проверки Ed25519
+нужен OpenSSL; установщик покажет статус Authenticode, но не заблокирует unsigned beta.

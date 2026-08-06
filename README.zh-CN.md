@@ -27,5 +27,6 @@ Get-Content .\install.ps1
 ```
 
 安装程序会识别操作系统与架构，从公共 GitHub Release 下载对应压缩包，验证 `SHA256SUMS` 的
-Ed25519 签名与压缩包 SHA-256，随后运行内置的 `self-test`。Windows 还要求可执行文件具有有效的
-Authenticode 签名。
+Ed25519 签名与压缩包 SHA-256，随后运行内置的 `self-test`。Beta 版本有意不依赖付费的 Apple
+公证或 Windows Authenticode。Windows 需要 OpenSSL 完成同样的 Ed25519 验证；安装程序会显示
+Authenticode 状态，但不会阻止明确标记的未签名 Beta 版本。

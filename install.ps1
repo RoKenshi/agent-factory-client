@@ -5,9 +5,14 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+$ReleaseKeySha256 = "beffec8ae3d1e3f614f81b441261176ab02b8bd800ac791eddaaf06d0da7de29"
 if (-not [Environment]::Is64BitOperatingSystem) { throw "64-bit Windows is required" }
 if ($env:PROCESSOR_ARCHITECTURE -notin @("AMD64", "x86")) {
     throw "Only Windows x86-64 is currently published"
+}
+$OpenSsl = Get-Command openssl -ErrorAction SilentlyContinue
+if (-not $OpenSsl) {
+    throw "OpenSSL is required to verify the Agent Factory release signature"
 }
 
 if ($Version) {
@@ -27,6 +32,21 @@ try {
     $Archive = Join-Path $Temporary $Asset
     Invoke-WebRequest "$Base/$Asset" -OutFile $Archive
     Invoke-WebRequest "$Base/SHA256SUMS" -OutFile (Join-Path $Temporary "SHA256SUMS")
+    Invoke-WebRequest "$Base/SHA256SUMS.sig" -OutFile (Join-Path $Temporary "SHA256SUMS.sig")
+    $PublicKey = Join-Path $Temporary "RELEASE-SIGNING-KEY.pem"
+    Invoke-WebRequest `
+        "https://raw.githubusercontent.com/$Repository/main/RELEASE-SIGNING-KEY.pem" `
+        -OutFile $PublicKey
+    $KeyDigest = (Get-FileHash -Algorithm SHA256 $PublicKey).Hash.ToLowerInvariant()
+    if ($KeyDigest -ne $ReleaseKeySha256) {
+        throw "Release verification key fingerprint mismatch"
+    }
+    & $OpenSsl.Source pkeyutl -verify -rawin `
+        -pubin `
+        -inkey $PublicKey `
+        -sigfile (Join-Path $Temporary "SHA256SUMS.sig") `
+        -in (Join-Path $Temporary "SHA256SUMS") | Out-Null
+    if ($LASTEXITCODE -ne 0) { throw "Release checksum signature verification failed" }
     $ChecksumLine = Get-Content (Join-Path $Temporary "SHA256SUMS") |
         Where-Object { $_ -match "^[0-9a-fA-F]{64}\s+$([regex]::Escape($Asset))$" } |
         Select-Object -First 1
@@ -43,8 +63,10 @@ try {
     Move-Item $Extracted $Target
     $Binary = Join-Path $Target "agent-factory.exe"
     $Signature = Get-AuthenticodeSignature $Binary
-    if ($Signature.Status -ne [System.Management.Automation.SignatureStatus]::Valid) {
-        throw "Authenticode verification failed: $($Signature.Status)"
+    if ($Signature.Status -eq [System.Management.Automation.SignatureStatus]::Valid) {
+        Write-Host "Authenticode signature: valid"
+    } else {
+        Write-Warning "Unsigned beta (Authenticode status: $($Signature.Status)). Ed25519 release signature and archive SHA-256 are valid."
     }
     & $Binary self-test
 
