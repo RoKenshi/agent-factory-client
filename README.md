@@ -45,8 +45,9 @@ Get-Content .\install.ps1
 ```
 
 Installers detect the operating system and architecture, download from the public GitHub Release,
-verify the archive against `SHA256SUMS`, extract the complete standalone directory, and run the
-binary's built-in `self-test`.
+verify the Ed25519 signature over `SHA256SUMS`, verify the archive checksum, extract the complete
+standalone directory, and run the binary's built-in `self-test`. Windows additionally requires a
+valid Authenticode signature on the executable.
 
 ## Run
 

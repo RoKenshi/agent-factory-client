@@ -42,6 +42,10 @@ try {
     $Extracted = Join-Path $Temporary "agent-factory-v$CleanVersion-windows-x86_64"
     Move-Item $Extracted $Target
     $Binary = Join-Path $Target "agent-factory.exe"
+    $Signature = Get-AuthenticodeSignature $Binary
+    if ($Signature.Status -ne [System.Management.Automation.SignatureStatus]::Valid) {
+        throw "Authenticode verification failed: $($Signature.Status)"
+    }
     & $Binary self-test
 
     $BinDirectory = Join-Path $InstallRoot "bin"

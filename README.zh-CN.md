@@ -26,5 +26,6 @@ Get-Content .\install.ps1
 .\install.ps1
 ```
 
-安装程序会识别操作系统与架构，从公共 GitHub Release 下载对应压缩包，验证 SHA-256，随后运行
-内置的 `self-test`。
+安装程序会识别操作系统与架构，从公共 GitHub Release 下载对应压缩包，验证 `SHA256SUMS` 的
+Ed25519 签名与压缩包 SHA-256，随后运行内置的 `self-test`。Windows 还要求可执行文件具有有效的
+Authenticode 签名。
