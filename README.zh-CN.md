@@ -30,3 +30,20 @@ Get-Content .\install.ps1
 Ed25519 签名与压缩包 SHA-256，随后运行内置的 `self-test`。Beta 版本有意不依赖付费的 Apple
 公证或 Windows Authenticode。Windows 需要 OpenSSL 完成同样的 Ed25519 验证；安装程序会显示
 Authenticode 状态，但不会阻止明确标记的未签名 Beta 版本。
+
+验证完成后，安装程序会自动打开本地设置向导。若要稍后设置，请使用
+`AGENT_FACTORY_SKIP_SETUP=1`（Windows 可使用 `-SkipSetup`），然后运行：
+
+```bash
+agent-factory setup
+```
+
+向导会从任意 OpenAI-compatible endpoint 发现模型，允许通过复选框选择 minion 模型、为角色
+分配模型并选择 MCP host。Codex 和 Claude 可自动注册，其他 host 会获得可直接粘贴的配置。
+Provider key 仅存于操作系统凭据存储，不会写入 JSON。个人设置、有限缓存和无内容同步队列共用
+一个私有 `agent-factory.json`，不使用持久化 SQLite 数据库。MCP 会按需启动本地 runtime；使用
+`agent-factory open` 可重新打开 dashboard。
+
+Agent Factory 账户密钥与 provider key 完全分开。使用 `agent-factory activate` 输入账户密钥；
+两个密钥会作为不同记录保存在操作系统凭据存储中，重启后仍可使用。前 24 小时无需 Agent
+Factory 账户密钥。

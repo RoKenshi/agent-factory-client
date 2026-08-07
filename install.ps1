@@ -1,7 +1,8 @@
 param(
     [string]$Version = "",
     [string]$Repository = "RoKenshi/agent-factory-client",
-    [string]$InstallRoot = "$env:LOCALAPPDATA\AgentFactory"
+    [string]$InstallRoot = "$env:LOCALAPPDATA\AgentFactory",
+    [switch]$SkipSetup
 )
 
 $ErrorActionPreference = "Stop"
@@ -81,7 +82,12 @@ try {
     }
     $env:Path = "$env:Path;$BinDirectory"
     Write-Host "Agent Factory $CleanVersion installed at $Target"
-    Write-Host "Run: agent-factory serve"
+    if (-not $SkipSetup -and $env:AGENT_FACTORY_SKIP_SETUP -ne "1") {
+        Write-Host "Opening the local setup wizard..."
+        & $Binary setup
+    } else {
+        Write-Host "Run: agent-factory setup"
+    }
 } finally {
     Remove-Item -Recurse -Force $Temporary -ErrorAction SilentlyContinue
 }

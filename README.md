@@ -49,14 +49,22 @@ Installers detect the operating system and architecture, download from the publi
 verify the Ed25519 signature over `SHA256SUMS`, verify the archive checksum, extract the complete
 standalone directory, and run the binary's built-in `self-test`. Windows requires OpenSSL for the
 same Ed25519 verification and reports, but does not require, Authenticode for the unsigned beta.
+The installer then opens a local setup wizard. Set `AGENT_FACTORY_SKIP_SETUP=1` (or use
+`-SkipSetup` on Windows) to postpone it.
 
 ## Run
 
 ```bash
-agent-factory serve
+agent-factory setup
 ```
 
-Configure the MCP host to run the same executable with the `mcp` argument:
+The browser wizard discovers models from your OpenAI-compatible endpoint, lets you select minion
+models with checkboxes, assigns models to roles, and registers Codex or Claude automatically.
+Provider credentials are stored in the operating-system credential store, never in the local JSON.
+Cursor and other MCP hosts receive a ready-to-paste configuration.
+
+After setup, the MCP host runs the executable with the `mcp` argument. That command starts the
+local runtime automatically; no daemon command or local database setup is required:
 
 ```json
 {
@@ -69,6 +77,14 @@ Configure the MCP host to run the same executable with the `mcp` argument:
   }
 }
 ```
+
+Use `agent-factory open` to return to the dashboard. Personal preferences, bounded cache, and the
+content-free sync outbox share one private `agent-factory.json`; durable statistics live in the
+remote control plane when telemetry is explicitly enabled. No persistent SQLite database is used.
+
+The optional Agent Factory account key is separate from the provider key. Enter it with
+`agent-factory activate`; both secrets live as separate records in the OS credential store and are
+reused after a reboot. The first 24 hours do not require an Agent Factory account key.
 
 ## Supported artifacts
 

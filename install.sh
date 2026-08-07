@@ -90,4 +90,9 @@ mv "$extracted" "$target"
 ln -sfn "$target/agent-factory" "$BIN_DIR/agent-factory"
 
 echo "Agent Factory $version installed at $target"
-echo "Ensure $BIN_DIR is in PATH, then run: agent-factory serve"
+if [ "${AGENT_FACTORY_SKIP_SETUP:-0}" != "1" ] && [ -t 1 ]; then
+  echo "Opening the local setup wizard..."
+  "$target/agent-factory" setup
+else
+  echo "Ensure $BIN_DIR is in PATH, then run: agent-factory setup"
+fi
