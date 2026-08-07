@@ -38,11 +38,12 @@ Authenticode 状态，但不会阻止明确标记的未签名 Beta 版本。
 agent-factory setup
 ```
 
-向导会从任意 OpenAI-compatible endpoint 发现模型，允许通过复选框选择 minion 模型、为角色
-分配模型并选择 MCP host。Codex 和 Claude 可自动注册，其他 host 会获得可直接粘贴的配置。
-Provider key 仅存于操作系统凭据存储，不会写入 JSON。个人设置、有限缓存和无内容同步队列共用
-一个私有 `agent-factory.json`，不使用持久化 SQLite 数据库。MCP 会按需启动本地 runtime；使用
-`agent-factory open` 可重新打开 dashboard。
+向导可管理多个 OpenRouter、DeepSeek、Ollama 或 OpenAI-compatible provider profile，并为每个
+角色选择“provider + model”。新增或轮换的密钥会先经过验证；profile 可以停用或删除。每个密钥
+版本都作为独立记录保存在操作系统凭据存储中，不会写入 JSON；密钥轮换后，已运行任务仍保留其
+原始的无密钥路由快照。Codex 和 Claude 可自动注册，其他 host 会获得可直接粘贴的配置。个人
+设置、有限缓存和无内容同步队列共用一个私有 `agent-factory.json`，不使用持久化 SQLite 数据库。
+MCP 会按需启动本地 runtime；使用 `agent-factory open` 可重新打开 dashboard。
 
 Agent Factory 账户密钥与 provider key 完全分开。使用 `agent-factory activate` 输入账户密钥；
 两个密钥会作为不同记录保存在操作系统凭据存储中，重启后仍可使用。前 24 小时无需 Agent

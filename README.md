@@ -58,10 +58,12 @@ The installer then opens a local setup wizard. Set `AGENT_FACTORY_SKIP_SETUP=1` 
 agent-factory setup
 ```
 
-The browser wizard discovers models from your OpenAI-compatible endpoint, lets you select minion
-models with checkboxes, assigns models to roles, and registers Codex or Claude automatically.
-Provider credentials are stored in the operating-system credential store, never in the local JSON.
-Cursor and other MCP hosts receive a ready-to-paste configuration.
+The browser wizard manages multiple OpenRouter, DeepSeek, Ollama, or OpenAI-compatible profiles.
+It verifies new and rotated keys, lets each role select a `provider + model` pair, and can disable
+or delete profiles. Every credential version is stored separately in the operating-system
+credential store, never in the local JSON. Active runs keep their original non-secret routing
+snapshot when a key is rotated. Codex and Claude register automatically; other MCP hosts receive a
+ready-to-paste configuration.
 
 After setup, the MCP host runs the executable with the `mcp` argument. That command starts the
 local runtime automatically; no daemon command or local database setup is required:
