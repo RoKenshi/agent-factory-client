@@ -45,6 +45,11 @@ agent-factory setup
 设置、有限缓存和无内容同步队列共用一个私有 `agent-factory.json`，不使用持久化 SQLite 数据库。
 MCP 会按需启动本地 runtime；使用 `agent-factory open` 可重新打开 dashboard。
 
+普通设置仅需四步：选择 provider、粘贴密钥、选择“节省 / 平衡 / 最高质量”模式，并连接自动检测到的
+coding agent。Agent Factory 会自动分配角色模型。精确模型复选框、自定义 endpoint 和手动角色路由
+位于 Advanced settings。同一本地页面也可更换密钥、查看试用状态、激活 Agent Factory 和管理
+MCP 连接。
+
 Agent Factory 账户密钥与 provider key 完全分开。使用 `agent-factory activate` 输入账户密钥；
 两个密钥会作为不同记录保存在操作系统凭据存储中，重启后仍可使用。前 24 小时无需 Agent
 Factory 账户密钥。

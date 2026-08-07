@@ -65,6 +65,11 @@ credential store, never in the local JSON. Active runs keep their original non-s
 snapshot when a key is rotated. Codex and Claude register automatically; other MCP hosts receive a
 ready-to-paste configuration.
 
+Normal setup is four decisions: provider, key, savings/balanced/quality mode, and detected coding
+agent. Agent Factory assigns role models automatically. Exact model checkboxes, custom endpoints,
+and manual role routing stay under Advanced settings. The same local page manages key replacement,
+provider status, trial/account activation, and MCP connection.
+
 After setup, the MCP host runs the executable with the `mcp` argument. That command starts the
 local runtime automatically; no daemon command or local database setup is required:
 
