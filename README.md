@@ -66,6 +66,13 @@ agent-factory setup
 Setup opens the local UI, stores credentials in the current user's credential store, and registers
 the selected MCP host. Never run setup with `sudo`.
 
+Normal setup is four decisions: provider, provider key, savings/balanced/quality mode, and the
+detected coding agent. Agent Factory assigns role models automatically. Advanced settings exposes
+exact model checkboxes, custom OpenAI-compatible endpoints, ordered per-role fallback routes, and
+key replacement. New keys are verified before activation; active runs keep their original
+non-secret routing snapshot when a key is rotated. Use `agent-factory open` to return to the local
+dashboard. No persistent local database is required.
+
 ## Update and uninstall
 
 Re-run the install command to verify and activate the newest release. Existing settings, provider

@@ -28,6 +28,12 @@ Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-clien
 验证完成后，安装程序会自动打开本地设置页面。重复运行会安全地刷新命令链接；无界面环境可设置
 `AGENT_FACTORY_NO_SETUP=1`。请使用普通用户安装，不要使用 `sudo`。
 
+普通设置只需四个选择：provider、provider key、节省/平衡/质量模式，以及检测到的 coding
+agent。Agent Factory 会自动分配角色模型。Advanced settings 提供精确模型复选框、自定义
+OpenAI-compatible endpoint、每个角色的有序 fallback 路由和密钥轮换。新密钥会先验证再启用；
+正在运行的任务继续使用原来的无密钥路由快照。使用 `agent-factory open` 可返回本地
+dashboard；无需持久化本地数据库。
+
 ## 更新与卸载
 
 更新时重新运行安装程序即可；它会验证新的 `latest` Release 签名，并把命令切换到新版本。
