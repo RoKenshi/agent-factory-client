@@ -66,6 +66,19 @@ agent-factory setup
 Setup opens the local UI, stores credentials in the current user's credential store, and registers
 the selected MCP host. Never run setup with `sudo`.
 
+## Update and uninstall
+
+Re-run the install command to verify and activate the newest release. Existing settings, provider
+credentials and restart-safe run state are preserved. To remove only the binaries on Linux/macOS:
+
+```bash
+curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/uninstall.sh && sh uninstall.sh
+```
+
+On Windows, download and run `uninstall.ps1`. Uninstall preserves local state by default. Set
+`AGENT_FACTORY_PURGE_STATE=1` on POSIX or pass `-PurgeState` on Windows only when local settings,
+credentials and run history should also be deleted.
+
 Configure the MCP host to run the same executable with the `mcp` argument:
 
 ```json

@@ -18,9 +18,9 @@ jobs:
           - macos-15
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Parse POSIX installer
-        run: sh -n install.sh
+        run: sh -n install.sh && sh -n uninstall.sh
       - name: Check pinned release keys
         run: python3 tests/test_pinned_release_key.py
       - name: Test signed POSIX installation
@@ -29,7 +29,7 @@ jobs:
   powershell:
     runs-on: windows-2025
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Parse PowerShell installer
         shell: pwsh
         run: |
@@ -37,6 +37,15 @@ jobs:
           $errors = $null
           [System.Management.Automation.Language.Parser]::ParseFile(
             (Resolve-Path ./install.ps1),
+            [ref]$tokens,
+            [ref]$errors
+          ) | Out-Null
+          if ($errors.Count -gt 0) {
+            $errors | Format-List | Out-String | Write-Error
+            exit 1
+          }
+          [System.Management.Automation.Language.Parser]::ParseFile(
+            (Resolve-Path ./uninstall.ps1),
             [ref]$tokens,
             [ref]$errors
           ) | Out-Null

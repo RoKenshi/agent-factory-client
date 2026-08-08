@@ -29,12 +29,19 @@ remain in the local JSON queue. A registered installation has a documented offli
 after it expires, pending statistics block only new work until sync succeeds. Running work is never
 interrupted. Withdrawing the terms stops uploads and continued registered use after that grace.
 
-## Personal-data acceptance gate
+## Identity and service providers
 
-The current pre-release control-plane implementation may process an OIDC email during sign-in.
-That does not satisfy the intended data-minimization promise. Before a GA release, Agent Factory
-must either remove email persistence and use an opaque authentication subject, or explicitly revise
-this policy and obtain appropriate consent.
+RoKenshi operates Agent Factory. Privacy, account and deletion requests may be sent to
+`rouronikenshi@gmail.com`. Google identity tokens are validated in memory; the application persists
+an opaque issuer/subject pair and does not persist the Google email claim. Cloudflare delivers the
+public edge, AWS runs the application, Neon stores PostgreSQL data, Google provides identity and
+GitHub distributes releases. These providers may process network and security metadata under their
+own terms and may operate internationally.
+
+Raw effectiveness events are retained for 90 days and body-free security audit records for 365
+days. The account dashboard supports analytics export and deletion. Users may request access,
+correction, restriction, portability or deletion through the contact above and may complain to
+their local supervisory authority.
 
 Network infrastructure such as GitHub, a CDN, or the control-plane host may process IP addresses and
 security logs under their own policies. Agent Factory application logs must not retain request

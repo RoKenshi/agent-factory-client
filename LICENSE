@@ -3,7 +3,8 @@ MIT License
 Copyright (c) 2026 RoKenshi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of the installer scripts in this repository (install.sh and install.ps1), to deal
+of the installer scripts in this repository (install.sh, install.ps1, uninstall.sh and
+uninstall.ps1), to deal
 in those installer scripts without restriction, including without limitation the
 rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the installer scripts, and to permit persons to whom the installer

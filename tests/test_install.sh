@@ -54,7 +54,7 @@ base="file://$release"
 AGENT_FACTORY_VERSION="$version" \
 AGENT_FACTORY_RELEASE_BASE_URL="$base" \
 AGENT_FACTORY_RELEASE_PUBLIC_KEY_FILE="$TEMPORARY/public.pem" \
-AGENT_FACTORY_INSTALL_ROOT="$TEMPORARY/install" \
+AGENT_FACTORY_INSTALL_ROOT="$TEMPORARY/agent-factory" \
 AGENT_FACTORY_BIN_DIR="$TEMPORARY/bin" \
 AGENT_FACTORY_NO_SETUP=1 \
   sh "$ROOT/install.sh"
@@ -63,7 +63,7 @@ AGENT_FACTORY_NO_SETUP=1 \
 AGENT_FACTORY_VERSION="$version" \
 AGENT_FACTORY_RELEASE_BASE_URL="$base" \
 AGENT_FACTORY_RELEASE_PUBLIC_KEY_FILE="$TEMPORARY/public.pem" \
-AGENT_FACTORY_INSTALL_ROOT="$TEMPORARY/install" \
+AGENT_FACTORY_INSTALL_ROOT="$TEMPORARY/agent-factory" \
 AGENT_FACTORY_BIN_DIR="$TEMPORARY/bin" \
 AGENT_FACTORY_NO_SETUP=1 \
   sh "$ROOT/install.sh"
@@ -79,3 +79,9 @@ if AGENT_FACTORY_VERSION="$version" \
   echo "installer accepted a tampered signature" >&2
   exit 1
 fi
+
+AGENT_FACTORY_INSTALL_ROOT="$TEMPORARY/agent-factory" \
+AGENT_FACTORY_BIN_DIR="$TEMPORARY/bin" \
+  sh "$ROOT/uninstall.sh"
+[ ! -e "$TEMPORARY/agent-factory" ]
+[ ! -e "$TEMPORARY/bin/agent-factory" ]

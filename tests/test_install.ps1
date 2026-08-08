@@ -55,7 +55,7 @@ public static class Program {
         }
     }
 
-    $InstallRoot = Join-Path $Temporary "install"
+    $InstallRoot = Join-Path $Temporary "AgentFactory"
     $env:AGENT_FACTORY_NO_SETUP = "1"
     & (Join-Path $Root "install.ps1") -Version $Version -InstallRoot $InstallRoot `
         -ReleaseBaseUrl $Base -ReleasePublicKeyModulus $Modulus -NoPathUpdate
@@ -76,6 +76,9 @@ public static class Program {
         $Rejected = $_.Exception.Message -match "signature verification failed"
     }
     if (-not $Rejected) { throw "Installer accepted a tampered signature" }
+
+    & (Join-Path $Root "uninstall.ps1") -InstallRoot $InstallRoot
+    if (Test-Path $InstallRoot) { throw "Uninstaller did not remove the install root" }
 } finally {
     if ($Server) { Stop-Process -Id $Server.Id -Force -ErrorAction SilentlyContinue }
     if (Test-Path $Temporary) { Remove-Item -Recurse -Force $Temporary }

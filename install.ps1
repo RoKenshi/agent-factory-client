@@ -1,7 +1,7 @@
 param(
     [string]$Version = "",
     [string]$Repository = "RoKenshi/agent-factory-client",
-    [string]$InstallRoot = "$env:LOCALAPPDATA\AgentFactory",
+    [string]$InstallRoot = "$env:LOCALAPPDATA\Programs\AgentFactory",
     [string]$ReleaseBaseUrl = $env:AGENT_FACTORY_RELEASE_BASE_URL,
     [string]$ReleasePublicKeyModulus = "",
     [switch]$NoPathUpdate

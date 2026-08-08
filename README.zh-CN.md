@@ -7,8 +7,9 @@ Agent Factory 不会向自身服务器发送模型提供商 API 密钥、源代�
 终端输出或模型回复。Provider key 只保存在用户设备上，并由本地 runtime 直接发送至用户选择的
 OpenAI-compatible endpoint。
 
-远程技术遥测默认关闭，不包含执行内容，并且必须同时取得本地与服务器端的明确同意。完整且具有
-约束力的数据范围请查看 [PRIVACY.md](PRIVACY.md)。
+24 小时试用期结束后，注册使用要求每天同步一次不含执行内容的统计批次。批次仅包含受限的模型、
+任务类型、结果、耗时、token 数量以及来源明确的费用字段；不会发送代码、提示词、模型回复、路径或
+provider key。完整且具有约束力的数据范围请查看 [PRIVACY.md](PRIVACY.md)。
 
 ## Linux 与 macOS
 
@@ -26,3 +27,15 @@ Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-clien
 `SHA256SUMS` 的 RSA-SHA256 签名，再验证压缩包 SHA-256，随后运行内置 `self-test`。
 验证完成后，安装程序会自动打开本地设置页面。重复运行会安全地刷新命令链接；无界面环境可设置
 `AGENT_FACTORY_NO_SETUP=1`。请使用普通用户安装，不要使用 `sudo`。
+
+## 更新与卸载
+
+更新时重新运行安装程序即可；它会验证新的 `latest` Release 签名，并把命令切换到新版本。
+卸载二进制文件时默认保留本地设置和运行记录：
+
+```bash
+curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/uninstall.sh && sh uninstall.sh
+```
+
+只有显式执行 `sh uninstall.sh --purge-state` 才会删除本地状态。Windows 用户可下载并运行
+本仓库的 `./uninstall.ps1`；完整清除状态需使用 `./uninstall.ps1 -PurgeState`。
