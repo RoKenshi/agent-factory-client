@@ -19,8 +19,8 @@ engine or control-plane source code.
 - local environment variables or OS credential-store contents.
 
 Provider keys stay on the user's machine and are sent only from the local runtime to the provider
-endpoint selected by that user. Remote effectiveness telemetry is off by default, schema-limited,
-content-free, and requires separate local and server-side consent.
+endpoint selected by that user. Registered use requires one schema-limited, content-free statistics
+batch per day. The installer discloses this before activation; it never includes execution content.
 
 Read the exact contract in [PRIVACY.md](PRIVACY.md) and report vulnerabilities according to
 [SECURITY.md](SECURITY.md).

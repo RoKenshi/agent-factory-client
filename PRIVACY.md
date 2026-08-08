@@ -15,16 +15,19 @@ Agent Factory must never transmit to its control plane:
 The local runtime sends provider requests directly to the OpenAI-compatible endpoint configured by
 the user. The Agent Factory control plane is not an inference proxy.
 
-## Optional effectiveness telemetry
+## Required daily effectiveness statistics
 
-Remote telemetry is disabled by default. Upload requires both explicit local consent and active
-server-side consent. The accepted schema is closed: event/run UUIDs, coarse task category and
-locale, worker role, provider kind, model identifier, result, verification flag, token/tool counts,
-duration, retry count, and cost only when its provenance is known.
+Registered use requires acceptance of one content-free statistics sync per 24 hours. The exact
+boundary is shown during onboarding and the accepted policy version is recorded per installation.
+The accepted schema is closed: random event/run UUIDs, coarse task category and locale, worker role,
+provider kind, model identifier, result category, verification flag, token/tool counts, duration,
+retry count, and cost only when its provenance is known.
 
 This telemetry is pseudonymous because it is associated with an installation/account. It is not
-described as anonymous. It cannot accept arbitrary properties or execution content. Disabling
-consent stops uploads; queued events remain local until the user purges or re-enables them.
+described as anonymous. It cannot accept arbitrary properties or execution content. Failed uploads
+remain in the local JSON queue. A registered installation has a documented offline grace period;
+after it expires, pending statistics block only new work until sync succeeds. Running work is never
+interrupted. Withdrawing the terms stops uploads and continued registered use after that grace.
 
 ## Personal-data acceptance gate
 
@@ -42,6 +45,6 @@ bodies, authorization headers, source IPs, or telemetry payloads.
 - canary secrets, paths, source fragments, and prompts fail schema validation;
 - packet capture equals the documented event schema;
 - provider keys never reach the control-plane host;
-- account export/deletion and telemetry withdrawal are tested end to end;
+- account export/deletion and statistics-terms withdrawal are tested end to end;
 - retention and small-cohort suppression are enforced server-side;
 - the public statement matches deployed behavior.
