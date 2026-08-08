@@ -43,8 +43,8 @@ else
   digest="$(shasum -a 256 "$release/$asset" | awk '{print $1}')"
 fi
 printf '%s  %s\n' "$digest" "$asset" > "$release/SHA256SUMS"
-openssl genpkey -quiet -algorithm RSA -pkeyopt rsa_keygen_bits:2048 \
-  -out "$TEMPORARY/private.pem"
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 \
+  -out "$TEMPORARY/private.pem" 2>/dev/null
 openssl pkey -in "$TEMPORARY/private.pem" -pubout -out "$TEMPORARY/public.pem"
 openssl dgst -sha256 -sign "$TEMPORARY/private.pem" \
   -out "$release/SHA256SUMS.sig" "$release/SHA256SUMS"

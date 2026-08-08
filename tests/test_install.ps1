@@ -20,7 +20,12 @@ public static class Program {
 }
 '@
     $Binary = Join-Path $Distribution "agent-factory.exe"
-    Add-Type -TypeDefinition $Source -OutputAssembly $Binary -OutputType ConsoleApplication
+    $SourcePath = Join-Path $Temporary "Program.cs"
+    [IO.File]::WriteAllText($SourcePath, $Source, [Text.UTF8Encoding]::new($false))
+    & powershell.exe -NoProfile -NonInteractive -Command "Add-Type -Path '$SourcePath' -OutputAssembly '$Binary' -OutputType ConsoleApplication"
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path $Binary)) {
+        throw "Failed to build the Windows installer test stub"
+    }
     $Asset = "$Directory.zip"
     $Archive = Join-Path $Release $Asset
     Compress-Archive -Path $Distribution -DestinationPath $Archive
