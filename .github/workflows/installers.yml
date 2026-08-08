@@ -21,6 +21,10 @@ jobs:
       - uses: actions/checkout@v7
       - name: Parse POSIX installer
         run: sh -n install.sh
+      - name: Check pinned release keys
+        run: python3 tests/test_pinned_release_key.py
+      - name: Test signed POSIX installation
+        run: sh tests/test_install.sh
 
   powershell:
     runs-on: windows-2025
@@ -40,3 +44,9 @@ jobs:
             $errors | Format-List | Out-String | Write-Error
             exit 1
           }
+      - name: Check pinned release keys
+        shell: pwsh
+        run: python tests/test_pinned_release_key.py
+      - name: Test signed PowerShell installation
+        shell: pwsh
+        run: ./tests/test_install.ps1

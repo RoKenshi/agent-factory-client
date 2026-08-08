@@ -7,5 +7,6 @@ Until a dedicated security mailbox is published, use GitHub's private vulnerabil
 this repository. Include the affected version/platform, reproduction steps, impact, and whether any
 secret may have been exposed. Never include real provider or activation keys.
 
-Release archives must have a matching entry in `SHA256SUMS`. Production releases additionally
-require Apple notarization, Windows Authenticode, and signed Linux checksum/package metadata.
+Release archives must have a matching entry in `SHA256SUMS`, and `SHA256SUMS` must have a valid
+RSA-SHA256 signature from the public key pinned in the installers. Production releases additionally
+require Apple notarization, Windows Authenticode, and signed Linux package metadata.

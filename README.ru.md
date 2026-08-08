@@ -15,18 +15,22 @@ OpenAI-compatible endpoint.
 ## Установка Linux/macOS
 
 ```bash
-curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh
-less install.sh
-sh install.sh
+curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh && sh install.sh
+```
+
+Для опубликованных macOS-релизов также доступен Homebrew tap:
+
+```bash
+brew install rokenshi/tap/agent-factory
 ```
 
 ## Установка Windows PowerShell
 
 ```powershell
-Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1
-Get-Content .\install.ps1
-.\install.ps1
+Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1; .\install.ps1
 ```
 
-Скрипт определит платформу, скачает архив из публичного GitHub Release, обязательно проверит
-SHA-256 и выполнит встроенный `self-test`.
+Скрипт определит платформу, скачает архив из публичного GitHub Release, проверит RSA-SHA256 подпись
+файла `SHA256SUMS`, затем checksum архива и выполнит встроенный `self-test`. После проверки
+установщик сам откроет локальный onboarding. Повторный запуск безопасно обновляет command link;
+для headless-режима задайте `AGENT_FACTORY_NO_SETUP=1`. Не используйте `sudo`.

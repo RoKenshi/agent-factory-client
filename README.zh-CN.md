@@ -13,18 +13,16 @@ OpenAI-compatible endpoint。
 ## Linux 与 macOS
 
 ```bash
-curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh
-less install.sh
-sh install.sh
+curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh && sh install.sh
 ```
 
 ## Windows PowerShell
 
 ```powershell
-Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1
-Get-Content .\install.ps1
-.\install.ps1
+Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1; .\install.ps1
 ```
 
-安装程序会识别操作系统与架构，从公共 GitHub Release 下载对应压缩包，验证 SHA-256，随后运行
-内置的 `self-test`。
+安装程序会识别操作系统与架构，从公共 GitHub Release 下载对应压缩包，先验证
+`SHA256SUMS` 的 RSA-SHA256 签名，再验证压缩包 SHA-256，随后运行内置 `self-test`。
+验证完成后，安装程序会自动打开本地设置页面。重复运行会安全地刷新命令链接；无界面环境可设置
+`AGENT_FACTORY_NO_SETUP=1`。请使用普通用户安装，不要使用 `sudo`。

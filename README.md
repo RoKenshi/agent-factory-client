@@ -7,8 +7,9 @@ This repository contains transparent installer scripts, privacy/security documen
 checksums, and compiled release binaries. It does **not** contain the proprietary Agent Factory
 engine or control-plane source code.
 
-> Pre-release: no production binary is published until code signing and the privacy acceptance
-> gates in [PRIVACY.md](PRIVACY.md) pass.
+> Pre-release: archives have project-level release signatures, but the binaries are not yet backed
+> by Apple notarization or Windows Authenticode. Do not call a release GA until those platform
+> signing and privacy acceptance gates pass.
 
 ## What Agent Factory never receives
 
@@ -26,33 +27,44 @@ Read the exact contract in [PRIVACY.md](PRIVACY.md) and report vulnerabilities a
 
 ## Install
 
-Do not pipe remote scripts directly into a shell. Download and inspect the installer first.
+One pasted command downloads the readable installer and runs it. Inspect `install.sh` or
+`install.ps1` between the two operations when your security policy requires review.
 
 ### Linux and macOS
 
 ```bash
-curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh
-less install.sh
-sh install.sh
+curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh && sh install.sh
+```
+
+Published macOS releases are also available from the project tap:
+
+```bash
+brew install rokenshi/tap/agent-factory
 ```
 
 ### Windows PowerShell
 
 ```powershell
-Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1
-Get-Content .\install.ps1
-.\install.ps1
+Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1; .\install.ps1
 ```
 
 Installers detect the operating system and architecture, download from the public GitHub Release,
-verify the archive against `SHA256SUMS`, extract the complete standalone directory, and run the
-binary's built-in `self-test`.
+verify the RSA-SHA256 signature over `SHA256SUMS`, verify the archive checksum, extract the complete
+standalone directory, and run the binary's built-in `self-test`. The release public key is pinned in
+both installers and published as [`RELEASE-SIGNING-KEY.pem`](RELEASE-SIGNING-KEY.pem).
+
+After verification, the installer immediately opens the local setup UI. Re-running the same command
+is safe: it re-verifies the release and refreshes the command link. For headless automation, set
+`AGENT_FACTORY_NO_SETUP=1` and open setup later.
 
 ## Run
 
 ```bash
-agent-factory serve
+agent-factory setup
 ```
+
+Setup opens the local UI, stores credentials in the current user's credential store, and registers
+the selected MCP host. Never run setup with `sudo`.
 
 Configure the MCP host to run the same executable with the `mcp` argument:
 
