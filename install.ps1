@@ -53,7 +53,7 @@ try {
     Invoke-WebRequest "$Base/SHA256SUMS" -OutFile $Checksums
     Invoke-WebRequest "$Base/SHA256SUMS.sig" -OutFile $Signature
 
-    $PinnedModulus = "tmqCNJHM8Wuakgx9DCxk+1xV68yaTcUijGWVkIdfY3OnosjdtfR5vXOLPmpR74Sg3k4QtNmRAW6SvjqU0u161YbN24lGElOjCg/Z6HT1sZigg3aUGCuFvNDBdA3UamYsk0OU5WgQc6PMeUWts1DD+XIfOmZ3ogOJ0qUSgFMHaBc2z+A46hsmBiefUF76OaTU/q9DETtksj15zfaCPZASivTnuQQNgkcEwxLd8cpr22wX0qIGJwCVA1CFTMkhnGBfi9BV6KB+j90xRLTaKD2knelv3KQFR/eh9Gs3MLeyXKW5RdXI5isqB1481wtEB7LAGItfBp/E3IfU0AX8rXsppd0FO3WakusoF5EkbLxbN9oarrDEJ0KJD1CDedLtp22AtiYkZtmzHrn/1Oe3TjbRxELFWVekq1YErSw9D5SWll/QYIozhEHZnUP8UISa4tDkPIXNYDpsvcKpP37xvR3GUQwkCso3EIBmZ9ZiZCRZFk4d1VZB2SkFRgLl8L9cTk/5"
+    $PinnedModulus = "po1I9vmvIGg2IQ1n7/MStLnNMqRmQUd+kO9TrQreT+X0gxjwtF/ZDQta+7vDkDu6dZhXNma2flaxMrp8VrPJEXdx89XzycLLuv0Gf8e1tHfg2WV1TRKkMtJa4BFPRQBSXFc1TXM4CUDNSwknAJl8qfb5miMm8QU+7bL2lkEpkPt6h8Rq56RV5eWH4g+1xgN14T14+9FSEK24TLaWK8Uue5clRLYuTcNAscU90fyi0NvTeg0gFOcvrf/FUMEJY4IXyGdTX8bWUcHIRWp9EE+UXjrdr6nC4Mc1G24nPBtfDhFh2ml4A6fal+Y9CYkd4sOFnXtVcBY89vvP+7g30qPu5A7UwMgCocNu1YUYq9I/tfcMjHCxIJAySZJb7tJgmN63ljV7adx3esz8Kr92fctQefO/GYdUFjv7FUygtuNlrOrRr2VBlLWwylfSr75ZX91vl/22lnpjezFIXj7NjBeBZMkANypnRQhr2H/zE97EFXuVKWPeeYoAIXf1dLSx4RAm1AZ7WfWUG76nsCOro1T1x7cQ5EoGcBpFa1PawBb9MMsBGS2eCLiZX8Ogf+9spGvjv1L0mtBoRUxOtjaZRi3/smhp+x4OZZ6JaPKXMRHbQ6AUbkAPRKTCe9f7nZUv+Ht39MimFBplOPaeF1YScqpgsEE5HHk68Q/58sKhdWOnNVU="
     $Modulus = [Convert]::FromBase64String(
         $(if ($ReleasePublicKeyModulus) { $ReleasePublicKeyModulus } else { $PinnedModulus })
     )
