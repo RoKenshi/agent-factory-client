@@ -24,6 +24,8 @@ jobs:
         run: sh -n install.sh && sh -n uninstall.sh
       - name: Check pinned release keys
         run: python3 tests/test_pinned_release_key.py
+      - name: Test complete release-bundle verification
+        run: python3 -m unittest tests/test_release_bundle.py
       - name: Test signed POSIX installation
         run: sh tests/test_install.sh
 
@@ -57,6 +59,9 @@ jobs:
       - name: Check pinned release keys
         shell: pwsh
         run: python tests/test_pinned_release_key.py
+      - name: Test complete release-bundle verification
+        shell: pwsh
+        run: python -m unittest tests/test_release_bundle.py
       - name: Test signed PowerShell installation
         shell: pwsh
         run: ./tests/test_install.ps1
