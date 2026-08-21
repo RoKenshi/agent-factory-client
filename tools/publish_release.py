@@ -64,7 +64,7 @@ def _artifact_names(version: str) -> tuple[str, ...]:
 
 def _validate_version_and_tag(version: str, tag: str) -> None:
     if VERSION_RE.fullmatch(version) is None:
-        raise PublishError("version must be a stable SemVer core such as 0.1.2")
+        raise PublishError("version must be a stable SemVer core such as 0.1.3")
     expected = f"v{version}"
     if tag != expected:
         raise PublishError(
@@ -420,9 +420,9 @@ def print_plan(prepared: PreparedRelease) -> None:
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", required=True, help="artifact version, for example 0.1.2")
+    parser.add_argument("--version", required=True, help="artifact version, for example 0.1.3")
     parser.add_argument(
-        "--tag", required=True, help="exact immutable artifact tag, for example v0.1.2"
+        "--tag", required=True, help="exact immutable artifact tag, for example v0.1.3"
     )
     parser.add_argument("--staging", required=True, type=Path)
     parser.add_argument("--repo", default=DEFAULT_REPOSITORY)

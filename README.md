@@ -38,10 +38,10 @@ For the stable channel:
 curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh && sh install.sh
 ```
 
-An explicitly selected prerelease never changes `/releases/latest`; install v0.1.2 with:
+An explicitly selected prerelease never changes `/releases/latest`; install v0.1.3 with:
 
 ```bash
-curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh && AGENT_FACTORY_VERSION=0.1.2 sh install.sh
+curl -fLO https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.sh && AGENT_FACTORY_VERSION=0.1.3 sh install.sh
 ```
 
 Signed stable macOS releases are also available from the project tap:
@@ -58,10 +58,10 @@ For the stable channel:
 Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1; .\install.ps1
 ```
 
-For the explicitly selected v0.1.2 prerelease:
+For the explicitly selected v0.1.3 prerelease:
 
 ```powershell
-Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1; .\install.ps1 -Version 0.1.2
+Invoke-WebRequest https://raw.githubusercontent.com/RoKenshi/agent-factory-client/main/install.ps1 -OutFile install.ps1; .\install.ps1 -Version 0.1.3
 ```
 
 Installers detect the operating system and architecture, download from the public GitHub Release,

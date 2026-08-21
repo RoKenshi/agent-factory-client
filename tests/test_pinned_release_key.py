@@ -14,6 +14,10 @@ def main() -> None:
     powershell_installer = (ROOT / "install.ps1").read_text(encoding="utf-8")
     if public_key.strip() not in shell_installer:
         raise SystemExit("install.sh does not pin RELEASE-SIGNING-KEY.pem")
+    if "command -v git" not in shell_installer:
+        raise SystemExit("install.sh does not require Git")
+    if "Get-Command git.exe" not in powershell_installer:
+        raise SystemExit("install.ps1 does not require Git")
 
     match = re.search(r'\$PinnedModulus = "([A-Za-z0-9+/=]+)"', powershell_installer)
     if match is None:

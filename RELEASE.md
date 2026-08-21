@@ -4,9 +4,9 @@ This repository verifies and publishes Agent Factory downloads. It deliberately 
 the proprietary runtime source or a binary compiler. A release starts only after the engine release
 workspace has produced the complete standalone artifact matrix.
 
-## Required v0.1.2 matrix
+## Required v0.1.3 matrix
 
-The staging directory must contain exactly these archives, with `VERSION` replaced by `0.1.2`:
+The staging directory must contain exactly these archives, with `VERSION` replaced by `0.1.3`:
 
 ```text
 agent-factory-vVERSION-linux-x86_64.tar.gz
@@ -37,7 +37,7 @@ provider credentials.
 6. Run the client repository's independent gate:
 
    ```bash
-   tools/release-check.sh 0.1.2 /absolute/path/to/staging
+   tools/release-check.sh 0.1.3 /absolute/path/to/staging
    ```
 
 7. Do not create or move the Git tag until the gate passes. The tag, binary version and archive
@@ -62,8 +62,8 @@ a dry-run:
 
 ```bash
 python3 tools/publish_release.py \
-  --version 0.1.2 \
-  --tag v0.1.2 \
+  --version 0.1.3 \
+  --tag v0.1.3 \
   --staging /absolute/path/to/staging
 ```
 
@@ -73,10 +73,10 @@ tags or releases. The dry-run prints a revision-bound confirmation value. Only a
 plan may the same command be rerun with `--execute` and the exact printed value:
 
 ```bash
-export AGENT_FACTORY_PUBLISH_CONFIRM='publish:RoKenshi/agent-factory-client:v0.1.2:<exact-client-sha>'
+export AGENT_FACTORY_PUBLISH_CONFIRM='publish:RoKenshi/agent-factory-client:v0.1.3:<exact-client-sha>'
 python3 tools/publish_release.py \
-  --version 0.1.2 \
-  --tag v0.1.2 \
+  --version 0.1.3 \
+  --tag v0.1.3 \
   --staging /absolute/path/to/staging \
   --execute
 ```
