@@ -9,6 +9,7 @@ PUBLIC_KEY_FILE="${AGENT_FACTORY_RELEASE_PUBLIC_KEY_FILE:-}"
 
 command -v curl >/dev/null 2>&1 || { echo "error: curl is required" >&2; exit 1; }
 command -v openssl >/dev/null 2>&1 || { echo "error: OpenSSL is required" >&2; exit 1; }
+command -v git >/dev/null 2>&1 || { echo "error: Git is required" >&2; exit 1; }
 
 case "$(uname -s)" in
   Darwin)

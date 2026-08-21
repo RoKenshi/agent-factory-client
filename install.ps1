@@ -9,6 +9,9 @@ param(
 
 $ErrorActionPreference = "Stop"
 if (-not [Environment]::Is64BitOperatingSystem) { throw "64-bit Windows is required" }
+if (-not (Get-Command git.exe -ErrorAction SilentlyContinue)) {
+    throw "Git is required"
+}
 $Architecture = if ($env:PROCESSOR_ARCHITEW6432) {
     $env:PROCESSOR_ARCHITEW6432
 } else {
